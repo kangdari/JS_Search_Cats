@@ -11,13 +11,20 @@ class App{
             onSearch: (keyword) => {
                 api.fetchCats(keyword).then(({data}) => this.setState(data));
             }
-        })
+        }),
 
+        this.serachResult = new SearchResult({
+            $app,
+            initialData : this.data,
+            onClick: (id) => {
+                api.fetchCat(id).then(({data}) => console.log(data))
+            }
+        })
     }
 
     setState(nextData){
         this.data = nextData;
-        console.log(this.data);
+        this.serachResult.setState(nextData);
     }
 
     // render() {}
