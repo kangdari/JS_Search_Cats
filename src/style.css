@@ -11,6 +11,62 @@ html{
 }
 
 #App{
-    width: 1200px;
-    margin: 0 auto;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+header{
+    margin-bottom: 2rem;
+}
+
+header input{
+    width: 100%;
+    padding: 15px 15px;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+main{
+    min-width: 400px;
+}
+
+main .searchResult{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
+    grid-gap: 10px;
+}
+
+main .searchResult img{
+    width: 100%;    
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+
+/* 992px 이하 적용 */
+@media (max-width : 992px){
+    main .searchResult{
+        grid-template-columns: repeat(3, minmax(250px, 1fr));
+    }
+}
+/* 768px 이하 적용 */
+@media (max-width : 768px){
+    main .searchResult{
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
+}
+/* 576px 이하 적용 */
+@media (max-width : 576px){
+    main .searchResult{
+        grid-template-columns: repeat(1, minmax(250px, 1fr));
+    }
+}
+/* darkMode 설정 */
+@media (prefers-color-scheme: dark){
+    body{
+        color: #ffffff;
+        background: #000000;
+    }
 }

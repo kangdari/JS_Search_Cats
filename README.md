@@ -19,14 +19,50 @@
 
 ### HTML, CSS
 
-* `<div>로만 구성되어있는 마크업을 시멘틱한 방법으로 변경`
+* `<div>`로만 구성되어있는 마크업을 시멘틱한 방법으로 변경
+
+    >* header 태그 - searchInput(검색창), 최근 검색어 목록, 화면 모드 토글 버튼
+    >* main 태그 - 주 내용들이 위치함. 
+    >* section 태그 - main 태그 내부에 위치하며 searchResult, imageInfo. 총 2개
+    >* article 태그 - 각 고양이 이미지
+    
 
 * 유저가 사용하는 디바이스의 가로 길이에 따라 검색결과의 row 당 column 갯수를 적절히 변경해주어야 합니다.
-    * 992px 이하: 3개
-    * 768px 이하: 2개 
-    * 576px 이하: 1개
+
+    >```
+    /* 992px 이하 3개*/
+    @media (max-width : 992px){
+        section .searchResult{
+            grid-template-columns: repeat(3, minmax(250px, 1fr));
+        }
+    }
+    /* 768px 이하 적용 2개 */
+    @media (max-width : 768px){
+        section .searchResult{
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
+    /* 576px 이하 적용 1개 */
+    @media (max-width : 576px){
+        section .searchResult{
+            grid-template-columns: repeat(1, minmax(250px, 1fr));
+        }
+    }
+    ```
 
 * * 다크 모드(Dark mode)를 지원하도록 CSS를 수정해야 합니다.
-    * CSS 파일 내의 다크 모드 관련 주석을 제거한 뒤 구현합니다.
-    * 모든 글자 색상은 `#FFFFFF` , 배경 색상은 `#000000` 로 한정합니다.
+    * 모든 글자 색상은 `#FFFFFF` , 배경 색상은 `#000000` 로 한정합니다. 
+    
+    >
+    prefers-color-scheme 값은 dark, light 두 가지가 있으며, 브라우저의 모드에 따라서 미디어퀴리가 적용됨.
+    ```
+    dsad
+    @media (prefers-color-scheme: dark){
+    body{
+        color: #ffffff;
+        background: #000000;
+        }
+    }
+    ```
+    
     * 기본적으로는 OS의 다크모드의 활성화 여부를 기반으로 동작하게 하되, 유저가 토글

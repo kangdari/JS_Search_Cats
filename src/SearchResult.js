@@ -4,8 +4,8 @@ class SearchResult {
 
     constructor({ $app, initialData, onClick}){
 
-        const section = document.createElement('section');
-        this.$searchResult = document.createElement('div');
+        const section = document.createElement('main');
+        this.$searchResult = document.createElement('section');
         this.$searchResult.className = "searchResult";
 
         section.appendChild(this.$searchResult);
