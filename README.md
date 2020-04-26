@@ -29,7 +29,8 @@
 
 * 유저가 사용하는 디바이스의 가로 길이에 따라 검색결과의 row 당 column 갯수를 적절히 변경해주어야 합니다.
 
-    >```
+    >
+    ```
     /* 992px 이하 3개*/
     @media (max-width : 992px){
         section .searchResult{
@@ -50,13 +51,12 @@
     }
     ```
 
-* * 다크 모드(Dark mode)를 지원하도록 CSS를 수정해야 합니다.
+* 다크 모드(Dark mode)를 지원하도록 CSS를 수정해야 합니다.
     * 모든 글자 색상은 `#FFFFFF` , 배경 색상은 `#000000` 로 한정합니다. 
     
     >
     prefers-color-scheme 값은 dark, light 두 가지가 있으며, 브라우저의 모드에 따라서 미디어퀴리가 적용됨.
     ```
-    dsad
     @media (prefers-color-scheme: dark){
     body{
         color: #ffffff;
@@ -64,5 +64,20 @@
         }
     }
     ```
-    
-    * 기본적으로는 OS의 다크모드의 활성화 여부를 기반으로 동작하게 하되, 유저가 토글
+
+    * 기본적으로는 OS의 다크모드의 활성화 여부를 기반으로 동작하게 하되, 유저가 토글링 할 수 있도록 좌측 상단에 해당 기능을 토글하는 체크박스를 만듭니다.
+
+    >
+    checkbox 버튼을 생성자에서 생성하고 changeTheme 이벤트를 등록함.
+    ```
+    changeTheme(e) {
+        const body = document.querySelector('body');
+        // black mode
+        if(e.target.checked){
+            body.classList.toggle('light_mode');
+        // light mode
+        }else{
+            body.classList.toggle('light_mode');
+        }
+    }
+    ```

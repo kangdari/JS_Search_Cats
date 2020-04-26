@@ -70,3 +70,8 @@ main .searchResult img{
         background: #000000;
     }
 }
+/* light, black 모드 설정을 위한 토글 클래스 */
+.light_mode{
+    color: #000000;
+    background: #ffffff;
+}

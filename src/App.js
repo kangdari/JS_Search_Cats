@@ -6,6 +6,7 @@ class App{
 
     constructor($app){
         this.$app = $app;
+
         this.searchInput = new SearchInput({
             $app,
             onSearch: (keyword) => {
