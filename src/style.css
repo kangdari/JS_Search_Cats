@@ -45,6 +45,51 @@ main .searchResult img{
 }
 
 
+/* ---ImageInfo--- */
+.imageInfo{
+    display: none;      
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;       
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.visible{
+    display: block;
+}
+
+.content_wrapper{
+    min-width: 768px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 10px;
+}
+
+.content_wrapper .title{
+    padding: 10px 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.content_wrapper img{
+    width: 100%;
+}
+
+.content_wrapper .content{
+    padding: 10px;
+}
+
+.content_wrapper .content p{
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
 /* 992px 이하 적용 */
 @media (max-width : 992px){
     main .searchResult{
@@ -55,6 +100,10 @@ main .searchResult img{
 @media (max-width : 768px){
     main .searchResult{
         grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
+    .content_wrapper{
+        min-width: 400px;
+        width: 100%;
     }
 }
 /* 576px 이하 적용 */

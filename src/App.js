@@ -18,7 +18,17 @@ class App{
             $app,
             initialData : this.data,
             onClick: (id) => {
-                api.fetchCat(id).then(({data}) => console.log(data))
+                api.fetchCat(id).then(({data}) => this.imageInfo.setState({
+                    visible: true,
+                    data
+                }))
+            }
+        }),
+
+        this.imageInfo = new ImageInfo({
+            initialData: {
+                visible: false,
+                info: null
             }
         })
     }
