@@ -52,6 +52,5 @@ class SearchResult {
         document.querySelectorAll(".item").forEach(cat => 
             cat.addEventListener('click', (e)=> this.onClick(e.target.id) ))
 
-        console.log('rendering')
     }
 }

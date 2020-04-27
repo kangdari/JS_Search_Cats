@@ -26,6 +26,28 @@ header input{
     font-weight: 800;
 }
 
+header .searchedWords{
+    margin-top: 20px;
+    padding: 20px 10px;
+}
+
+header .searchedWords span{
+    padding: 10px 20px;
+    margin-right: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+
+    border: 1px solid;
+    border-radius: 5px;
+
+}
+
+header .searchedWords span:hover{
+    background: rgba(125, 125, 125, 0.5);
+}
+
+/* SearchResult */
+
 main{
     min-width: 400px;
 }
