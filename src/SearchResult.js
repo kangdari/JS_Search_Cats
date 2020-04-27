@@ -15,7 +15,20 @@ class SearchResult {
         this.data = initialData;
         this.onClick = onClick;
 
+        // LS에서 저장된 데이터가 있는지 확인하고 렌더링
+        this.get_LS_Data();
+
         console.log('Created SearchResult', this);
+    }
+
+    get_LS_Data(){
+        const data = JSON.parse(localStorage.getItem("data"));
+        if(data) {
+            this.setState({
+                loading: false,
+                data,
+            })
+        }
     }
 
     setState(nextData){

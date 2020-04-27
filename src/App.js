@@ -57,6 +57,8 @@ class App{
     setState(nextData){
         this.data = nextData;
         this.serachResult.setState(nextData);
+        // LS에 검색 결과 데이터를 저장(this.data.data)
+        if(this.data.data) localStorage.setItem('data', JSON.stringify(this.data.data));
     }
 
     // render() {}
