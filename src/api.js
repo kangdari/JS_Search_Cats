@@ -11,6 +11,11 @@ const api = {
     // 고양이 상세 검색 api
     fetchCat : (id) => {
         return fetch(`${API_POINT}/api/cats/${id}`).then(res => res.json());
+    },
+
+    // 고양이 랜덤 검색 api
+    fetchRandomCats : () => {
+        return fetch(`${API_POINT}/api/cats/random50`).then(res => res.json());
     }
 
 }

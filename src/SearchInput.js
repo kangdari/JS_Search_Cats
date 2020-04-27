@@ -3,15 +3,25 @@ class SearchInput {
     onSearch = null;
     searched_words = [];
     
-    constructor({$app, onSearch}){
+    constructor({ $app, onSearch, onRandomSearch }){
 
         const header = document.createElement('header');
         const $searchInput = document.createElement('input');
+        const searchWrapper = document.createElement('div');
         this.$searchedWords = document.createElement('div');
+
+        searchWrapper.className = "searchWrapper";
 
         this.toggleBtn = document.createElement('input');
         this.toggleBtn.type = "checkbox";
         this.toggleBtn.addEventListener('click',(e) => this.changeTheme(e));
+
+        // 랜덤 검색 버튼 생성 및 이벤트 리스너 등록
+        this.randomBtn = document.createElement('button');
+        this.randomBtn.className = "randomBtn";
+        this.randomBtn.innerText = "Random"
+        this.randomBtn.addEventListener('click', () => onRandomSearch() )
+
     
         $searchInput.className = "searchInput";
         $searchInput.placeholder = "Search Cat's name or breed...";
@@ -24,7 +34,10 @@ class SearchInput {
         })
 
         header.appendChild(this.toggleBtn);
-        header.appendChild($searchInput);
+        searchWrapper.appendChild($searchInput);
+        searchWrapper.appendChild(this.randomBtn);
+
+        header.appendChild(searchWrapper);
         header.appendChild(this.$searchedWords);
         $app.appendChild(header);
 

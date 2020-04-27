@@ -20,6 +20,19 @@ class App{
                     data,
                     loading: false,
                 }));
+            },
+            // 랜덤 검색 함수
+            onRandomSearch: () => {
+                // 로딩 시작
+                this.setState({
+                    data: null,
+                    loading: true
+                })
+                // 로딩 끝
+                api.fetchRandomCats().then(({ data }) => this.setState({
+                    data,
+                    loading: false
+                }))
             }
         }),
 

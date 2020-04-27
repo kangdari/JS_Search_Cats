@@ -181,6 +181,7 @@
     * 브라우저의 LocalStorage에 검색 결과와 최근 검색어 목록(searched_words)를 저장하고 새로고침 시 각 클래스의 생성자에서 LocalStorage에서 저장해둔 item 값을 가져와 값이 존재하면 렌더링할 수 있도록 코드 작성.
 
 * **`필수`** SearchInput 옆에 버튼을 하나 배치하고, 이 버튼을 클릭할 시 `/api/cats/random50` 을 호출하여 화면에 뿌리는 기능을 추가합니다. 버튼의 이름은 마음대로 정합니다.
+    * fetchRandomCats 랜덤 검색 api 함수를 작성하고 이 함수를 호출하는 onRandomSearch() 함수를 SearchInput의 인스턴스로 전달합니다. SearchInput 클래스의 생성자에서 생성한 랜덤 버튼의 이벤트 리스너로 onRandomSearch()를 등록함.
 
 * lazy load 개념을 이용하여, 이미지가 화면에 보여야 할 시점에 load 되도록 처리해야 합니다.
 
