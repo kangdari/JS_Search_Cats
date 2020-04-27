@@ -12,13 +12,13 @@ class SearchInput {
         this.toggleBtn.addEventListener('click',(e) => this.changeTheme(e));
     
         $searchInput.className = "searchInput";
-        $searchInput.placeholder = "Search Cats name or breed..."
+        $searchInput.placeholder = "Search Cats name or breed...";
 
         header.appendChild(this.toggleBtn);
         header.appendChild($searchInput);
         $app.appendChild(header);
 
-        // this.onSearch = onSearch;
+        $searchInput.focus();
 
         // 이벤트 리스너 등록
         $searchInput.addEventListener('keypress', (e) => {

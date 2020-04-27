@@ -118,4 +118,67 @@
         document.querySelector('.close_btn').addEventListener('click', () => this.onClose() )
     ```
 
+### 검색 페이지 관련
+
+* 페이지 진입 시 포커스가 `input` 에 가도록 처리하고, 키워드를 입력한 상태에서 `input` 을 클릭할 시에는 기존에 입력되어 있던 키워드가 삭제되도록 만들어야 합니다.
+    * $searchInput 요소를 추가한 다음 `$searchInput.focus()` 처리
+
+* **`필수`** 데이터를 불러오는 중일 때, 현재 데이터를 불러오는 중임을 유저에게 알리는 UI를 추가해야 합니다.
+    * 검색 api를 호출하는 onSearch, onClick 함수에서 api를 호출하기 전의 loading 상태 값과 api 호출 후 loading 상태 값을 각각의 인스턴스에 전달.
+    * 인스턴스에서는 loading의 상태 값에 따라 렌더링될 수 있도록 코드 작성.
+
+    * App.js
+    ```
+        this.searchInput = new SearchInput({
+            $app,
+            onSearch: (keyword) => {
+                // 로딩 시작
+                this.setState({
+                    data: null,
+                    loading: true,
+                })
+                // 로딩 끝
+                api.fetchCats(keyword).then(({data}) => this.setState({
+                    data,
+                    loading: false,
+                }));
+            }
+        }),
+    ```
+    * SearchResult.js
+    ```
+        render() {
+        // 로딩 중 ...
+        if(this.loading){
+            this.$searchResult.innerHTML = `
+                <div>Loading...</div>
+            `
+        }
+        ...
+    ```
+
+
+* **`필수`** 검색 결과가 없는 경우, 유저가 불편함을 느끼지 않도록 UI적인 적절한 처리가 필요합니다.
+    * 검색 데이터가 없을 경우 빈 배열을 반환합니다. render() 함수 내부에서 검색 결과 배열을 체크하여 분기 처리해주었습니다.
+    ```
+    // 검색 결과가 없을 때.
+    if(!this.loading && !this.data.length){
+        this.$searchResult.innerHTML = `
+            <div>검색 결과가 없습니다.</div>
+        `
+    }
+
+    // 로딩이 끝나고 검색 결과가 있을 때.
+    if(!this.loading && !!this.data.length){
+        ...
+    }
+    ```
+
+* 최근 검색한 키워드를 `SearchInput` 아래에 표시되도록 만들고, 해당 영역에 표시된 특정 키워드를 누르면 그 키워드로 검색이 일어나도록 만듭니다. 단, 가장 최근에 검색한 5개의 키워드만 노출되도록 합니다.
+
+* 페이지를 새로고침해도 마지막 검색 결과 화면이 유지되도록 처리합니다.
+
+* **`필수`** SearchInput 옆에 버튼을 하나 배치하고, 이 버튼을 클릭할 시 `/api/cats/random50` 을 호출하여 화면에 뿌리는 기능을 추가합니다. 버튼의 이름은 마음대로 정합니다.
+
+* lazy load 개념을 이용하여, 이미지가 화면에 보여야 할 시점에 load 되도록 처리해야 합니다.
 

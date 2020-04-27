@@ -1,5 +1,6 @@
 class SearchResult {
     data = [];
+    loading = false;
     onClick = null;
 
     constructor({ $app, initialData, onClick}){
@@ -18,12 +19,28 @@ class SearchResult {
     }
 
     setState(nextData){
-        this.data = nextData;
+        this.data = nextData.data;
+        this.loading = nextData.loading;
         this.render(); // image 렌더링
     }
 
     render() {
-        if(this.data){
+        // 로딩 중 ...
+        if(this.loading){
+            this.$searchResult.innerHTML = `
+                <div>Loading...</div>
+            `
+        }
+
+        // 검색 결과가 없을 때.
+        if(!this.loading && !this.data.length){
+            this.$searchResult.innerHTML = `
+                <div>검색 결과가 없습니다.</div>
+            `
+        }
+
+        // 로딩이 끝나고 검색 결과가 있을 때.
+        if(!this.loading && !!this.data.length){
             this.$searchResult.innerHTML = this.data.map(cat => {
                 const { id, url, name} = cat;
                 return `

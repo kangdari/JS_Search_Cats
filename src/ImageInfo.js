@@ -32,13 +32,20 @@ class ImageInfo {
     }
 
     setState(nextData){
+        console.log(nextData);
         this.data = nextData;
-        console.log(this.data)
+        this.loading = nextData.loading
         this.render();
     }
 
     render() {
-        if(this.data.visible){
+        // 로딩 중...
+        if(this.loading){
+            console.log('고양이 상세 정보 불러오는 중...');
+        }
+        // 로딩 끝.
+        if(!this.loading && this.data.visible){
+            console.log('고양이 상세 정보 불러옴.');
             this.$imageInfo.style.display = "block";
 
             const { name, origin, temperament, url } = this.data.data;

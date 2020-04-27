@@ -10,7 +10,16 @@ class App{
         this.searchInput = new SearchInput({
             $app,
             onSearch: (keyword) => {
-                api.fetchCats(keyword).then(({data}) => this.setState(data));
+                // 로딩 시작
+                this.setState({
+                    data: null,
+                    loading: true,
+                })
+                // 로딩 끝
+                api.fetchCats(keyword).then(({data}) => this.setState({
+                    data,
+                    loading: false,
+                }));
             }
         }),
 
@@ -18,10 +27,17 @@ class App{
             $app,
             initialData : this.data,
             onClick: (id) => {
+                // 로딩 시작
+                this.imageInfo.setState({
+                    loading: true,
+                });
+
+                // 로딩 끝
                 api.fetchCat(id).then(({data}) => this.imageInfo.setState({
                     visible: true,
+                    loading: false,
                     data
-                }))
+                }));
             }
         }),
 
