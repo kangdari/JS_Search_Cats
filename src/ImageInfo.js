@@ -1,13 +1,29 @@
 class ImageInfo {
     data = []; // 상세 데이터 
-    
-    constructor({ initialData }){
+    onClose = null;
+
+    constructor({ initialData, onClose }){
 
         const main = document.querySelector('main');
         this.$imageInfo = document.createElement('section');
-        this.$imageInfo.classList.add("imageInfo");
+        this.$imageInfo.className = "imageInfo";
 
         this.data = initialData;
+        this.onClose = onClose;
+
+        // 모달 밖 클릭
+        this.$imageInfo.addEventListener('click' , (e) => {
+            if (e.target.className === "imageInfo") {
+                this.onClose();
+            }
+        })
+
+        // ESC
+        document.addEventListener('keydown', (e) => {
+            if(this.$imageInfo.style.display === "block" && e.keyCode === 27){
+                this.onClose();
+            }
+        })
 
         main.appendChild(this.$imageInfo);
 
@@ -17,17 +33,22 @@ class ImageInfo {
 
     setState(nextData){
         this.data = nextData;
+        console.log(this.data)
         this.render();
     }
 
     render() {
-
         if(this.data.visible){
-            const { id, name, origin, temperament, url } = this.data.data;
+            this.$imageInfo.style.display = "block";
+
+            const { name, origin, temperament, url } = this.data.data;
 
             this.$imageInfo.innerHTML = `
                 <div class="content_wrapper">
-                    <div class="title">${name}</div>
+                    <div class="title">
+                        <span>${name}</span>
+                        <button class="close_btn">X</button>
+                    </div>
                     <img src="${url}" arl="cat_Image" />
                     <div class="content">
                         <p>출생: ${origin}</p>
@@ -35,10 +56,13 @@ class ImageInfo {
                     </div>
                 </div>
             `
-            this.$imageInfo.classList.add('visible');
+            // X 버튼 클릭
+            document.querySelector('.close_btn').addEventListener('click', () => this.onClose() )
+
         }else{
-            this.$imageInfo.classList.remove('visible');
+            this.$imageInfo.style.display = "none";
         }
+
 
 
     }

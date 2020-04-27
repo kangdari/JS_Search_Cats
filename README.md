@@ -96,10 +96,26 @@
     ```
 
 * **`필수`** 이미지를 검색한 후 결과로 주어진 이미지를 클릭하면 모달이 뜨는데, 모달 영역 밖을 누르거나 / 키보드의 ESC 키를 누르거나 / 모달 우측의 닫기(x) 버튼을 누르면 닫히도록 수정해야 합니다.
-    1. 모달 영역 밖
+    * 모달 영역 밖
+    ```
+        this.$imageInfo.addEventListener('click' , (e) => {
+            if (e.target.className === "imageInfo") {
+                this.onClose(); // visible => false
+            }
+        })
+    ```
+    * 키보드의 ESC
+    ```
+        document.addEventListener('keydown', (e) => {
+            if(this.$imageInfo.style.display === "block" && e.keyCode === 27){
+                this.onClose(); // visible => false
+            }
+        })
+    ```
 
-    2. 키보드의 ESC
+    * 모달 우측(x) 버튼 클릭
+    ```
+        document.querySelector('.close_btn').addEventListener('click', () => this.onClose() )
+    ```
 
-    3. 모달 우측(x) 버튼 클릭
 
-* 모달에서 고양이의 성격, 태생 정보를 렌더링합니다. 해당 정보는 `/cats/:id` 를 통해 불러와야 합니다.

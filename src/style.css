@@ -47,17 +47,12 @@ main .searchResult img{
 
 /* ---ImageInfo--- */
 .imageInfo{
-    display: none;      
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;       
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.3);
-}
-
-.visible{
-    display: block;
 }
 
 .content_wrapper{
@@ -69,12 +64,23 @@ main .searchResult img{
     background-color: #ffffff;
     color: #000000;
     border-radius: 10px;
+    z-index: 10;
 }
 
 .content_wrapper .title{
+    display: flex;
+    justify-content: space-between;
     padding: 10px 10px;
     font-size: 1.5rem;
     font-weight: bold;
+}
+.content_wrapper .title .close_btn{
+    padding: 10px;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid grey;
+    border-radius: 5px;
+    background-color: transparent;
 }
 
 .content_wrapper img{

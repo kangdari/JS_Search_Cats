@@ -28,7 +28,12 @@ class App{
         this.imageInfo = new ImageInfo({
             initialData: {
                 visible: false,
-                info: null
+                data: null
+            },
+            onClose: () => {
+                this.imageInfo.setState({
+                    visible: false,
+                })
             }
         })
     }
