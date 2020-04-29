@@ -54,8 +54,6 @@
 * 다크 모드(Dark mode)를 지원하도록 CSS를 수정해야 합니다.
     * 모든 글자 색상은 `#FFFFFF` , 배경 색상은 `#000000` 로 한정합니다. 
         prefers-color-scheme 값은 dark, light 두 가지가 있으며, 브라우저의 모드에 따라서 미디어퀴리가 적용됨.
-
-    
     >
     ```
     @media (prefers-color-scheme: dark){
@@ -67,18 +65,27 @@
     ```
 
     * 기본적으로는 OS의 다크모드의 활성화 여부를 기반으로 동작하게 하되, 유저가 토글링 할 수 있도록 좌측 상단에 해당 기능을 토글하는 체크박스를 만듭니다.
-        checkbox 버튼을 생성자에서 생성하고 changeTheme 이벤트를 등록함.
-
+        * checkbox 버튼을 생성자에서 생성하고 changeTheme 이벤트를 등록함.
+        * 기본 모드가 다크모드, 화이트 모드 어떤 것이든 토글링을 통해 모드 변경을 할 수 있도록 변경함.
     >
     ```
     changeTheme(e) {
         const body = document.querySelector('body');
-        // black mode
+
         if(e.target.checked){
-            body.classList.toggle('light_mode');
-        // light mode
+            // 기본 모드가 dark mode
+            if(window.matchMedia("(prefers-color-scheme: dark)").matches){
+                body.classList.toggle('light_mode');
+            // 기본 모드 ligth mode
+            }else{
+                body.classList.toggle('dark_mode');
+            }
         }else{
-            body.classList.toggle('light_mode');
+            if(window.matchMedia("(prefers-color-scheme: dark)").matches){
+                body.classList.toggle('light_mode');
+            }else{
+                body.classList.toggle('dark_mode');
+            }
         }
     }
     ```
@@ -232,19 +239,8 @@
 
 * 컴포넌트 내부의 함수들이나 Util 함수들을 작게 잘 나누어주세요.
 
-### 테스트 관련(가산점 요소)
-* Test suite와 각 test 의 목적을 이해하기 쉽게 기술해주세요. 예를 들어,
 
-```
-isNumber test (x)
-isNumber 함수는 number type 의 argument 를 받으면 True 를 리턴합니다. (o)
-```
-
-* 각 컴포넌트 내부에 있는 함수들이나, Util 함수들을 테스트 할 수 있게 분리합니다.
-
-* 조건문이 있는 함수의 경우, edge case에 대한 테스트를 준비합니다.
-
-* 테스트 코드 내에서 각 테스트마다 반복적으로 필요한 부분을 life cycle 함수를 이용해 관리하도록 합니다.
+## 느낀점
 
 
 

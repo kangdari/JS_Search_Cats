@@ -10,12 +10,21 @@ class SearchInput {
         this.$searchInput = document.createElement('input');
         const searchWrapper = document.createElement('div');
         this.$searchedWords = document.createElement('div');
-
         searchWrapper.className = "searchWrapper";
 
-        this.toggleBtn = document.createElement('input');
-        this.toggleBtn.type = "checkbox";
-        this.toggleBtn.addEventListener('click',(e) => this.changeTheme(e));
+        // toggle Btn 생성
+        this.toggleBack = document.createElement('div');
+        this.toggleBack.className = "toggle_B";
+        this.toggleBtn = document.createElement('button');
+        this.toggleBtn.className = "toggleBtn"
+        this.toggleBtn.addEventListener('click', (e) => {
+            const toggleBtn = e.target;
+            // 버튼 이동
+            toggleBtn.classList.toggle('clicked');
+            // 모드 설정
+            this.changeTheme(e);
+        })
+
 
         // 랜덤 검색 버튼 생성 및 이벤트 리스너 등록
         this.randomBtn = document.createElement('button');
@@ -36,7 +45,9 @@ class SearchInput {
             }
         })
 
-        header.appendChild(this.toggleBtn);
+        this.toggleBack.appendChild(this.toggleBtn);
+        header.appendChild(this.toggleBack);
+
         searchWrapper.appendChild(this.$searchInput);
         searchWrapper.appendChild(this.randomBtn);
 
@@ -63,7 +74,7 @@ class SearchInput {
         })
 
         this.get_LS_Data();
-        
+
         // scroll 이벤트 등록
         document.addEventListener('scroll', () => this.onScrollSearch() );
 
@@ -126,12 +137,18 @@ class SearchInput {
     // light, black 모드 설정
     changeTheme(e) {
         const body = document.querySelector('body');
-        // black mode
-        if(e.target.checked){
-            body.classList.toggle('light_mode');
-        // light mode
-        }else{
-            body.classList.toggle('light_mode');
+        const toggleBtn = document.querySelector('.toggleBtn');
+        if(e.target){
+            body.style.transition = '0.5s';
+            // 기본 모드가 dark mode
+            if(window.matchMedia("(prefers-color-scheme: dark)").matches){
+                body.classList.toggle('light_mode');
+                toggleBtn.classList.toggle('dark');
+            // 기본 모드 ligth mode
+            }else{
+                body.classList.toggle('dark_mode');
+                toggleBtn.classList.toggle('light');
+            }
         }
     }
 
