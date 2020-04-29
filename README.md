@@ -199,6 +199,9 @@
         `npm install http-server` 설치 후 index.html이 위치한 경로에서 `http-server ./` 명령어 실행
 
 * API fetch 코드를 `async` , `await` 문을 이용하여 수정해주세요. 해당 코드들은 에러가 났을 경우를 대비해서 적절히 처리가 되어있어야 합니다.
+
+* **`필수`** API 의 status code 에 따라 에러 메시지를 분리하여 작성해야 합니다. 아래는 예시입니다.
+
     ```
     fetchCats : (keyword) => {
         return fetch(`${API_POINT}/api/cats/search?q=${keyword}`).then(res => res.json())
@@ -216,30 +219,16 @@
         }
     },
     ```
-    
-* **`필수`** API 의 status code 에 따라 에러 메시지를 분리하여 작성해야 합니다. 아래는 예시입니다.
-
-```
-  const request = async (url: string) => {
-    try {
-      const result = await fetch(url);
-      return result.json();
-    } catch (e) {
-      console.warn(e);
-    }
-  }
-
-  const api = {
-    fetchGif: keyword => {
-      return request(`${API_ENDPOINT}/api/gif/search?q=${keyword}`);
-    },
-    fetchGifAll: () => {
-      return request(`${API_ENDPOINT}/api/gif/all`);
-    }
-  };
-```
 
 * SearchResult 에 각 아이템을 클릭하는 이벤트를 Event Delegation 기법을 이용해 수정해주세요.
+    * img item들의 부모 요소인 $searchResult에 이벤트 리스너를 등록하고 콜백 함수에서 분기 처리를 통해 이미지가 클릭되었을 때만 검색이 이루어지도록 작성했습니다.
+    ```
+    this.$searchResult.addEventListener('click', (e)=> {
+        if(e.target.tagName === "IMG"){
+            this.onClick(e.target.id);
+        }
+    })    
+    ```
 
 * 컴포넌트 내부의 함수들이나 Util 함수들을 작게 잘 나누어주세요.
 
@@ -252,7 +241,9 @@ isNumber 함수는 number type 의 argument 를 받으면 True 를 리턴합니�
 ```
 
 * 각 컴포넌트 내부에 있는 함수들이나, Util 함수들을 테스트 할 수 있게 분리합니다.
+
 * 조건문이 있는 함수의 경우, edge case에 대한 테스트를 준비합니다.
+
 * 테스트 코드 내에서 각 테스트마다 반복적으로 필요한 부분을 life cycle 함수를 이용해 관리하도록 합니다.
 
 

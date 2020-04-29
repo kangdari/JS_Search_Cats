@@ -9,6 +9,13 @@ class SearchResult {
         this.$searchResult = document.createElement('section');
         this.$searchResult.className = "searchResult";
 
+        // event Delegation 기법을 사용하여 이벤트 리스너 등록
+        this.$searchResult.addEventListener('click', (e)=> {
+            if(e.target.tagName === "IMG"){
+                this.onClick(e.target.id);
+            }
+        })    
+
         section.appendChild(this.$searchResult);
         $app.appendChild(section);
         
@@ -17,8 +24,6 @@ class SearchResult {
 
         // LS에서 저장된 데이터가 있는지 확인하고 렌더링
         this.get_LS_Data();
-
-        // window.addEventListener('scroll', () => this.onScrollSearch() );
 
         console.log('Created SearchResult', this);
     }
@@ -38,19 +43,6 @@ class SearchResult {
         this.loading = nextData.loading;
         this.render(); // image 렌더링
     }
-
-    // 스크롤 검색 함수
-    // onScrollSearch() {
-    //     let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
-    //     let windowHeight = window.innerHeight; // 스크린 창
-    //     let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
-    
-    //     if(scrollLocation + windowHeight >= fullHeight + 32){
-    //         console.log('끝')
-        
-    //     }
-    // }
-
 
     render() {
         // 로딩 중 ...
@@ -76,9 +68,5 @@ class SearchResult {
                 `}).join('')
 
         }
-        // 각 item마다 고양이 상세 정보 불러오기 이벤트 설정
-        document.querySelectorAll(".item").forEach(cat => 
-            cat.addEventListener('click', (e)=> this.onClick(e.target.id) ))
-
     }
 }

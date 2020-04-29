@@ -63,8 +63,9 @@ class SearchInput {
         })
 
         this.get_LS_Data();
-
-        window.addEventListener('scroll', () => this.onScrollSearch() );
+        
+        // scroll 이벤트 등록
+        document.addEventListener('scroll', () => this.onScrollSearch() );
 
         console.log('Created SearchInput', this);
     }
@@ -77,6 +78,7 @@ class SearchInput {
         let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
 
         if(scrollLocation + windowHeight >= fullHeight + 32){
+            console.log('scroll search...')
             const keyword = this.searched_words[this.searched_words.length-1];
             api.fetchCats(keyword).then(({ data }) => {
                 if(data){
