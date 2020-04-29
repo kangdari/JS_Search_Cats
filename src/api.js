@@ -4,18 +4,32 @@ const API_POINT =
 const api = {
 
     // 고양이 검색 api
-    fetchCats : (keyword) => {
-        return fetch(`${API_POINT}/api/cats/search?q=${keyword}`).then(res => res.json())
+    fetchCats : async (keyword) => {
+        try{
+            const data = await fetch(`${API_POINT}/api/cats/search?q=${keyword}`);
+            return data.json();
+        }catch(err){
+            console.log(err);
+        }
     },
 
     // 고양이 상세 검색 api
-    fetchCat : (id) => {
-        return fetch(`${API_POINT}/api/cats/${id}`).then(res => res.json());
+    fetchCat : async (id) => {
+        try{
+            const data = await fetch(`${API_POINT}/api/cats/${id}`);
+            return data.json();    
+        }catch(err){
+            console.log(err);
+        }
     },
 
     // 고양이 랜덤 검색 api
-    fetchRandomCats : () => {
-        return fetch(`${API_POINT}/api/cats/random50`).then(res => res.json());
+    fetchRandomCats : async () => {
+        try{
+            const data = await fetch(`${API_POINT}/api/cats/random50`);
+            return data.json();    
+        }catch(err){
+            console.log(err);
+        }
     }
-
 }

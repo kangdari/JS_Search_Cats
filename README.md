@@ -189,6 +189,73 @@
 * 검색 결과 화면에서 유저가 브라우저 스크롤 바를 끝까지 이동시켰을 경우, 그 다음 페이지를 로딩하도록 만들어야 합니다.
     * 다음 페이지를 로딩하는 api를 몰라 스크롤 이벤트 발생 시 최근 검색어로 검색을 수행하고 결과를 이어서 렌더링 하도록 작성했습니다.
 
+### 코드 구조 관련
+
+* ES6 module 형태로 코드를 변경합니다.
+    * `webpack` , `parcel` 과 같은 번들러를 사용하지 말아주세요.
+        모르겠다..
+
+    * 해당 코드 실행을 위해서는 `http-server` 모듈을(로컬 서버를 띄우는 다른 모듈도 사용 가능) 통해 `index.html` 을 띄워야 합니다.
+        `npm install http-server` 설치 후 index.html이 위치한 경로에서 `http-server ./` 명령어 실행
+
+* API fetch 코드를 `async` , `await` 문을 이용하여 수정해주세요. 해당 코드들은 에러가 났을 경우를 대비해서 적절히 처리가 되어있어야 합니다.
+    ```
+    fetchCats : (keyword) => {
+        return fetch(`${API_POINT}/api/cats/search?q=${keyword}`).then(res => res.json())
+    },
+    ```
+    위 코드를 아래 코드로 변경했고 try-catch문을 사용하여 에러 처리를 했습니다.
+    ```
+    // async, await를 사용.
+    fetchCats : async (keyword) => {
+        try{
+            const data = await fetch(`${API_POINT}/api/cats/search?q=${keyword}`);
+            return data.json();
+        }catch(err){
+            console.log(err);
+        }
+    },
+    ```
+    
+* **`필수`** API 의 status code 에 따라 에러 메시지를 분리하여 작성해야 합니다. 아래는 예시입니다.
+
+```
+  const request = async (url: string) => {
+    try {
+      const result = await fetch(url);
+      return result.json();
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  const api = {
+    fetchGif: keyword => {
+      return request(`${API_ENDPOINT}/api/gif/search?q=${keyword}`);
+    },
+    fetchGifAll: () => {
+      return request(`${API_ENDPOINT}/api/gif/all`);
+    }
+  };
+```
+
+* SearchResult 에 각 아이템을 클릭하는 이벤트를 Event Delegation 기법을 이용해 수정해주세요.
+
+* 컴포넌트 내부의 함수들이나 Util 함수들을 작게 잘 나누어주세요.
+
+### 테스트 관련(가산점 요소)
+* Test suite와 각 test 의 목적을 이해하기 쉽게 기술해주세요. 예를 들어,
+
+```
+isNumber test (x)
+isNumber 함수는 number type 의 argument 를 받으면 True 를 리턴합니다. (o)
+```
+
+* 각 컴포넌트 내부에 있는 함수들이나, Util 함수들을 테스트 할 수 있게 분리합니다.
+* 조건문이 있는 함수의 경우, edge case에 대한 테스트를 준비합니다.
+* 테스트 코드 내에서 각 테스트마다 반복적으로 필요한 부분을 life cycle 함수를 이용해 관리하도록 합니다.
+
+
 
 
 
